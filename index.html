@@ -71,12 +71,11 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  const W=700,H=280;
  function sampleCrashMultiplier(){
   const roll=Math.random()*100;
-  if(roll<10)return 1.15+Math.random()*1.84;
-  if(roll<35)return 3+Math.random()*1.99;
-  if(roll<70)return 5+Math.random()*4.99;
-  if(roll<92)return 10+Math.random()*20;
-  if(roll<99)return 31+Math.random()*69;
-  return 101+Math.random()*9899;
+  if(roll<25)return 1.15+Math.random()*1.84;
+  if(roll<65)return 3+Math.random()*1.99;
+  if(roll<90)return 5+Math.random()*4.99;
+  if(roll<98)return 10+Math.random()*10;
+  return 20+Math.random()*50;
  }
  function setButton(slot,label,disabled,cls){slot.button.textContent=label;slot.button.disabled=!!disabled;slot.button.className='bet-button'+(cls?' '+cls:'');}
  function payoutAt(slot,value,automatic){
@@ -90,11 +89,16 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  function startRound(){
   phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();
   crashAt=5600+Math.random()*3600;crashValue=sampleCrashMultiplier();
+  // Adaptive illustrative targets: conservative rounds use tight exits; stronger rounds use staggered exits.
+  const targetFactors=crashValue<=5?[0.90,0.97]:[0.50,0.945];
   screen.classList.remove('crashed');crash.style.display='none';status.textContent='● AI INTELLIGENCE RUNNING ALGORITHM';
   const amounts=amountCycle[(round-1)%amountCycle.length];
   slots.forEach((slot,i)=>{
+   slot.target=Math.max(1.05,Math.floor(crashValue*targetFactors[i]*100)/100);
+   const tag=slot.button.closest('.bet-panel').querySelector('.slot-tag');
+   if(tag)tag.textContent='ADAPTIVE EXIT · '+slot.target.toFixed(2)+'x';
    slot.active=true;slot.cashed=false;slot.stake=amounts[i];slot.input.value=slot.stake;slot.input.disabled=true;
-   slot.result.textContent='Bet placed: KSh '+slot.stake.toLocaleString('en-KE')+' · auto cash-out at '+slot.target+'x';slot.popup.textContent='';slot.popup.classList.remove('show');
+   slot.result.textContent='Bet placed: KSh '+slot.stake.toLocaleString('en-KE')+' · auto cash-out at '+slot.target.toFixed(2)+'x';slot.popup.textContent='';slot.popup.classList.remove('show');
    setButton(slot,'CASH OUT',false,'cashing');
   });
  }
