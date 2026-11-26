@@ -93,7 +93,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
    path.setAttribute('d',d);area.setAttribute('d',d+' L '+x.toFixed(1)+' 280 L 0 280 Z');
    point.setAttribute('cx',x);point.setAttribute('cy',y);
    plane.style.left=(progress*88+5)+'%';plane.style.top=(y/H*100)+'%';
-   slots.forEach(slot=>{if(slot.active&&!slot.cashed){const projected=Math.floor(slot.stake*value);slot.result.textContent='KSh '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+projected.toLocaleString('en-KE');}});
+   slots.forEach(slot=>{if(slot.active&&!slot.cashed){const projected=Math.floor(slot.stake*value),cash='KSh '+projected.toLocaleString('en-KE');slot.result.textContent='KSh '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = '+cash;setButton(slot,'CASH OUT '+cash,false,'cashing');}});
    if(elapsed>=crashAt)endRound();
   }
   requestAnimationFrame(frame);
@@ -107,12 +107,12 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
     slot.active=true;slot.cashed=false;slot.stake=stake;slot.result.textContent='Demo bet queued: KSh '+stake.toLocaleString('en-KE');slot.input.disabled=true;setButton(slot,'BET QUEUED',true,'');
    }else if(phase==='flying'&&slot.active&&!slot.cashed){
     const elapsed=performance.now()-roundStart,value=Math.exp(Math.min(elapsed/crashAt,1)*Math.log(crashValue)),payout=Math.floor(slot.stake*value);
-    slot.cashed=true;slot.active=false;slot.result.textContent='CASHED: '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+payout.toLocaleString('en-KE');setButton(slot,'CASHED OUT',true,'cashed');
+    slot.cashed=true;slot.active=false;slot.result.textContent='CASHED OUT: '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+payout.toLocaleString('en-KE');setButton(slot,'CASHED KSh '+payout.toLocaleString('en-KE'),true,'cashed');
    }
   });
  });
  function loopRound(){if(phase==='waiting'){startRound();}setTimeout(()=>{if(phase==='flying')endRound();loopRound();},phase==='flying'?crashAt:2700);}
- setTimeout(()=>{startRound();requestAnimationFrame(frame);},1200);
+ setTimeout(()=>{startRound();},1200);
  requestAnimationFrame(frame);
  setInterval(()=>{if(phase==='waiting')startRound();},12000);
 })();
