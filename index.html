@@ -36,10 +36,10 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  </div>
  <div class="game-history"><span>PREVIOUS ROUNDS</span><b>1.24x</b><b>2.81x</b><b>1.06x</b><b>4.32x</b><b>1.77x</b></div>
  <div class="game-panels">
-  <div class="bet-panel" data-slot="0"><div class="bet-panel-head"><b>BET SLOT 1</b><span class="slot-tag">AUTO CASHOUT</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="500" aria-label="Bet amount slot 1"><div class="bet-result" id="betResult0">Ready for next round</div><div class="cashout-pop" id="cashoutPop0" aria-live="polite"></div><button class="bet-button" type="button" data-action="bet" data-slot="0">BET</button></div>
-  <div class="bet-panel" data-slot="1"><div class="bet-panel-head"><b>BET SLOT 2</b><span class="slot-tag">AUTO CASHOUT</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="1000" aria-label="Bet amount slot 2"><div class="bet-result" id="betResult1">Ready for next round</div><div class="cashout-pop" id="cashoutPop1" aria-live="polite"></div><button class="bet-button" type="button" data-action="bet" data-slot="1">BET</button></div>
+  <div class="bet-panel" data-slot="0"><div class="bet-panel-head"><b>BET SLOT 1</b><span class="slot-tag">QUICK EXIT · 2x</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="500" aria-label="Bet amount slot 1"><div class="bet-result" id="betResult0">Ready for next round</div><div class="cashout-pop" id="cashoutPop0" aria-live="polite"></div><button class="bet-button" type="button" data-action="bet" data-slot="0">BET</button></div>
+  <div class="bet-panel" data-slot="1"><div class="bet-panel-head"><b>BET SLOT 2</b><span class="slot-tag">EXTENDED HOLD · 5x</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="1000" aria-label="Bet amount slot 2"><div class="bet-result" id="betResult1">Ready for next round</div><div class="cashout-pop" id="cashoutPop1" aria-live="polite"></div><button class="bet-button" type="button" data-action="bet" data-slot="1">BET</button></div>
  </div>
- <div class="game-footnote" style="color:#555;opacity:.55">AI Aviator Intelligence — system display.</div>
+ <div class="game-footnote" style="color:#555;opacity:.55">AI Aviator Intelligence — adaptive cash-out strategy display. Targets are preset rules, not crash predictions.</div>
 </div></div></section>
 <section class="section" id="winners"><div class="wrap"><div class="kicker">PRO TIPSTERS PAYOUT BOARD</div><h2 class="heading">This week's top payouts.</h2><p class="intro">Payout figures and names below are supplied by our team. Individual results vary and are not a promise of future winnings.</p><div class="livebar"><div><strong>AVIATOR MANAGEMENT DESK</strong><br><span>Registration and client support available on WhatsApp</span></div><span class="status">● OPEN</span></div><div class="leaderboard">
 <article class="winner"><span class="rank">#01 TOP PAYOUT</span><b>George Njoroge</b><div class="amount">KSh 105,789</div><small>Reported payout</small></article>
@@ -65,7 +65,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
 (function(){
  const screen=document.getElementById('gameScreen'),mult=document.getElementById('gameMultiplier'),plane=document.getElementById('gamePlane'),status=document.getElementById('gameStatus'),path=document.getElementById('flightPath'),area=document.getElementById('flightArea'),point=document.getElementById('flightPoint'),crash=document.getElementById('gameCrash'),roundLabel=document.getElementById('roundNumber');
  if(!screen)return;
- const slots=[0,1].map(i=>({active:false,cashed:false,stake:0,target:i===0?3:5,button:document.querySelector('[data-slot="'+i+'"][data-action="bet"]'),input:document.querySelectorAll('.stake-input')[i],result:document.getElementById('betResult'+i),popup:document.getElementById('cashoutPop'+i)}));
+ const slots=[0,1].map(i=>({active:false,cashed:false,stake:0,target:i===0?2:5,button:document.querySelector('[data-slot="'+i+'"][data-action="bet"]'),input:document.querySelectorAll('.stake-input')[i],result:document.getElementById('betResult'+i),popup:document.getElementById('cashoutPop'+i)}));
  const amountCycle=[[1000,1000],[750,1500],[1500,2000],[2000,1000],[1200,2500],[2500,1500]];
  let phase='waiting',round=0,roundStart=0,crashAt=0,crashValue=1.5,history=[];
  const W=700,H=280;
