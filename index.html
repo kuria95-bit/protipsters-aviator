@@ -65,58 +65,74 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
 (function(){
  const screen=document.getElementById('gameScreen'),mult=document.getElementById('gameMultiplier'),plane=document.getElementById('gamePlane'),status=document.getElementById('gameStatus'),path=document.getElementById('flightPath'),area=document.getElementById('flightArea'),point=document.getElementById('flightPoint'),crash=document.getElementById('gameCrash'),roundLabel=document.getElementById('roundNumber');
  if(!screen)return;
- const slots=[0,1].map(i=>({active:false,cashed:false,stake:0,button:document.querySelector('[data-slot="'+i+'"][data-action="bet"]'),input:document.querySelectorAll('.stake-input')[i],result:document.getElementById('betResult'+i)}));
+ const slots=[0,1].map(i=>({active:false,cashed:false,stake:0,target:i===0?3:5,button:document.querySelector('[data-slot="'+i+'"][data-action="bet"]'),input:document.querySelectorAll('.stake-input')[i],result:document.getElementById('betResult'+i)}));
+ const amountCycle=[[1000,1000],[750,1500],[1500,2000],[2000,1000],[1200,2500],[2500,1500]];
  let phase='waiting',round=0,roundStart=0,crashAt=0,crashValue=1.5,history=[];
  const W=700,H=280;
  function setButton(slot,label,disabled,cls){slot.button.textContent=label;slot.button.disabled=!!disabled;slot.button.className='bet-button'+(cls?' '+cls:'');}
- function resetSlots(){slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.result.textContent='Ready for next round';setButton(slot,'BET',false,'');slot.input.disabled=false;});}
+ function payoutAt(slot,value,automatic){
+  if(!slot.active||slot.cashed)return;
+  const payout=Math.floor(slot.stake*value);
+  slot.cashed=true;slot.active=false;
+  slot.result.textContent=(automatic?'AUTO CASHED OUT: ':'CASHED OUT: ')+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+payout.toLocaleString('en-KE');
+  setButton(slot,'PLAY NEXT ROUND',true,'cashed');
+ }
  function startRound(){
-  phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();crashAt=4600+Math.random()*4200;crashValue=1+Math.pow(crashAt/1500,1.45)*.55;
+  phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();
+  crashAt=5200+Math.random()*4000;crashValue=1.7+Math.random()*5.8;
   screen.classList.remove('crashed');crash.style.display='none';status.textContent='● THE PLANE IS FLYING';
-  slots.forEach(slot=>{if(slot.active){slot.cashed=false;slot.result.textContent='Demo bet active — cash out when ready';setButton(slot,'CASH OUT',false,'cashing');}else{slot.cashed=false;slot.stake=0;slot.input.disabled=false;slot.result.textContent='No demo bet in this round';setButton(slot,'BET NEXT ROUND',false,'');}});
+  const amounts=amountCycle[(round-1)%amountCycle.length];
+  slots.forEach((slot,i)=>{
+   slot.active=true;slot.cashed=false;slot.stake=amounts[i];slot.input.value=slot.stake;slot.input.disabled=true;
+   slot.result.textContent='Demo bet placed: KSh '+slot.stake.toLocaleString('en-KE')+' · auto cash-out at '+slot.target+'x';
+   setButton(slot,'CASH OUT',false,'cashing');
+  });
  }
  function endRound(){
-  phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● ROUND ENDED';mult.textContent=crashValue.toFixed(2)+'x';
-  slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='Crashed — demo stake lost';setButton(slot,'ROUND LOST',true,'');}});
+  if(phase!=='flying')return;
+  phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● ROUND ENDED';mult.innerHTML=crashValue.toFixed(2)+'<span>x</span>';
+  slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='CRASHED before '+slot.target+'x — demo stake lost';setButton(slot,'PLAY NEXT ROUND',true,'');}});
   history.unshift(crashValue.toFixed(2)+'x');history=history.slice(0,5);
   document.querySelectorAll('.game-history b').forEach((el,i)=>{el.textContent=history[i]||'—';});
-  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.input.disabled=false;const amountCycle=[[500,1000],[750,1500],[1000,2000],[1500,2500],[2000,3000]];slot.input.value=amountCycle[round%amountCycle.length][slots.indexOf(slot)];setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Next demo stake: KSh '+Number(slot.input.value).toLocaleString('en-KE');});},2400);
+  setTimeout(()=>{
+   phase='waiting';status.textContent='● NEXT ROUND STARTING';mult.innerHTML='NEXT ROUND';
+   path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';
+   slots.forEach(slot=>{slot.input.disabled=false;setButton(slot,'PLAY NEXT ROUND',false,'');slot.result.textContent='Next demo round loading…';});
+   setTimeout(()=>{if(phase==='waiting')startRound();},1400);
+  },2100);
  }
  function frame(now){
-  if(phase==='waiting'){
-   if(mult.textContent!=='NEXT ROUND')mult.textContent='1.00x';
-  }else if(phase==='flying'){
+  if(phase==='flying'){
    const elapsed=now-roundStart,progress=Math.min(elapsed/crashAt,1),value=Math.exp(progress*Math.log(crashValue));
    mult.innerHTML=value.toFixed(2)+'<span>x</span>';
-   const x=progress*W,y=H- Math.pow(progress,1.55)*220;
-   const d='M0 270 Q '+(x*.48)+' '+(H- Math.pow(progress*.48,1.55)*220-28)+' '+x.toFixed(1)+' '+y.toFixed(1);
+   const x=progress*W,y=H-Math.pow(progress,1.55)*220;
+   const d='M0 270 Q '+(x*.48)+' '+(H-Math.pow(progress*.48,1.55)*220-28)+' '+x.toFixed(1)+' '+y.toFixed(1);
    path.setAttribute('d',d);area.setAttribute('d',d+' L '+x.toFixed(1)+' 280 L 0 280 Z');
    point.setAttribute('cx',x);point.setAttribute('cy',y);
    plane.style.left=(progress*88+5)+'%';plane.style.top=(y/H*100)+'%';
-   slots.forEach(slot=>{if(slot.active&&!slot.cashed){const projected=Math.floor(slot.stake*value),cash='KSh '+projected.toLocaleString('en-KE');slot.result.textContent='KSh '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = '+cash;setButton(slot,'CASH OUT '+cash,false,'cashing');}});
+   slots.forEach(slot=>{
+    if(slot.active&&!slot.cashed){
+     const shown=Math.min(value,slot.target),projected=Math.floor(slot.stake*shown),cash='KSh '+projected.toLocaleString('en-KE');
+     slot.result.textContent='KSh '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = '+cash;
+     setButton(slot,'CASH OUT '+cash,false,'cashing');
+     if(value>=slot.target)payoutAt(slot,slot.target,true);
+    }
+   });
    if(elapsed>=crashAt)endRound();
   }
   requestAnimationFrame(frame);
  }
- slots.forEach((slot,i)=>{
-  setButton(slot,'BET NEXT ROUND',false,'');
-  slot.button.addEventListener('click',()=>{
-   if(phase==='waiting'){
-    const stake=Number(slot.input.value);
-    if(!Number.isFinite(stake)||stake<10){slot.result.textContent='Enter at least KSh 10';return;}
-    slot.active=true;slot.cashed=false;slot.stake=stake;slot.result.textContent='Demo bet queued: KSh '+stake.toLocaleString('en-KE');slot.input.disabled=true;setButton(slot,'BET QUEUED',true,'');
-   }else if(phase==='flying'&&slot.active&&!slot.cashed){
-    const elapsed=performance.now()-roundStart,value=Math.exp(Math.min(elapsed/crashAt,1)*Math.log(crashValue)),payout=Math.floor(slot.stake*value);
-    slot.cashed=true;slot.active=false;slot.result.textContent='CASHED OUT: '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+payout.toLocaleString('en-KE');setButton(slot,'CASHED KSh '+payout.toLocaleString('en-KE'),true,'cashed');
-   }
-  });
- });
- function loopRound(){if(phase==='waiting'){startRound();}setTimeout(()=>{if(phase==='flying')endRound();loopRound();},phase==='flying'?crashAt:2700);}
- setTimeout(()=>{startRound();},1200);
+ slots.forEach(slot=>slot.button.addEventListener('click',()=>{
+  if(phase==='flying'&&slot.active&&!slot.cashed){
+   const elapsed=performance.now()-roundStart,value=Math.exp(Math.min(elapsed/crashAt,1)*Math.log(crashValue));
+   payoutAt(slot,Math.min(value,slot.target),false);
+  }else if(phase==='waiting'){slot.result.textContent='Next demo round is starting automatically';}
+ }));
+ slots.forEach(slot=>{slot.input.disabled=true;setButton(slot,'NEXT ROUND',true,'');});
+ setTimeout(()=>{if(phase==='waiting')startRound();},1200);
  requestAnimationFrame(frame);
- setInterval(()=>{if(phase==='waiting')startRound();},12000);
 })();
-</script>
+</script>>
 <script>
 document.getElementById('clientForm').addEventListener('submit',function(e){
  e.preventDefault();
