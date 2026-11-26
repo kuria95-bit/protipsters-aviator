@@ -17,12 +17,30 @@ header{position:sticky;top:0;z-index:10;background:#080808ed;backdrop-filter:blu
 .form-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}.fee-panel{padding:25px;background:linear-gradient(145deg,#241014,#111);border:1px solid #59232b;border-radius:11px}.fee-panel h3{font:700 17px Orbitron;margin:0 0 12px}.fee{font:800 38px Orbitron;color:#fff}.fee-panel p{font-size:11px;color:#bbb}.fee-line{display:flex;justify-content:space-between;border-top:1px solid #ffffff18;padding:11px 0;font-size:11px}.form-card{background:#121212;border:1px solid #303030;border-radius:12px;padding:25px}.form-card h3{font:700 18px Orbitron;margin:0 0 5px}.form-card>p{color:#999;font-size:11px;margin-bottom:20px}.field{margin-bottom:14px}.field label{display:block;color:#ccc;font-size:10px;font-weight:600;margin-bottom:6px}.field input,.field select{width:100%;padding:13px 12px;background:#090909;color:#fff;border:1px solid #383838;border-radius:6px;font:12px Poppins;outline:none}.field input:focus,.field select:focus{border-color:var(--red)}.check{display:flex;gap:9px;align-items:flex-start;color:#aaa;font-size:10px;margin:13px 0}.check input{margin-top:4px;accent-color:var(--red)}.submit{width:100%;border:0}.form-note{font-size:9px;color:#888;margin:12px 0 0}.disclaimer{color:#888;font-size:10px;margin-top:14px}
 footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.foot a{color:#aaa;text-decoration:none}
 @media(max-width:800px){.hero-grid,.form-layout{grid-template-columns:1fr}.plane-stage{min-height:170px}.plane{font-size:75px}.leaderboard{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.navlinks{gap:10px}.navlinks a:not(.navcta){display:none}.section{padding:55px 0}}@media(max-width:420px){.nav{height:62px}.logo{font-size:11px}.navcta{font-size:9px;padding:8px}.leaderboard{grid-template-columns:1fr 1fr}.winner{padding:13px 10px}.amount{font-size:14px}.hero{padding:55px 0 35px}}
+
+/* Original Aviator-inspired interactive demo game */
+.aviator-game{width:100%;padding:12px;background:#090b11;border:1px solid #34343d;border-radius:12px;box-shadow:0 22px 60px #000a;position:relative;z-index:2}.game-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 3px 12px}.game-brand{font:800 13px Orbitron;color:#fff;letter-spacing:1px}.game-brand small{font:700 8px Poppins;color:#ff7d86;border:1px solid #74323b;border-radius:3px;padding:3px 5px;margin-left:5px}.game-status{font:700 8px Poppins;color:#ffc0c4;letter-spacing:.5px}.game-screen{height:260px;position:relative;overflow:hidden;border-radius:7px;background:radial-gradient(ellipse at 52% 48%,#3b101d 0%,#1a101a 48%,#090d18 100%);border:1px solid #49212d}.game-stars{position:absolute;inset:0;opacity:.4;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#ffabb5 1px,transparent 1px);background-size:53px 53px,91px 91px;background-position:0 0,27px 20px}.game-multiplier{position:absolute;z-index:3;top:24px;left:0;right:0;text-align:center;font:800 clamp(38px,6vw,58px)/1 Orbitron;color:#fff;text-shadow:0 0 25px #ff3443a8}.game-multiplier span{font-size:.55em;color:#ff7d87}.flight-chart{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible}.game-plane{position:absolute;z-index:4;left:0;top:0;font-size:36px;filter:drop-shadow(0 0 12px #ff4355);transform:translate(-50%,-50%) rotate(-18deg);transition:left .08s linear,top .08s linear}.game-crash{display:none;position:absolute;z-index:5;left:50%;top:55%;transform:translate(-50%,-50%);font:800 clamp(20px,4vw,30px) Orbitron;color:#ff4655;text-shadow:0 0 22px #ff102b;white-space:nowrap}.game-screen.crashed .game-crash{display:block;animation:crashPop .35s ease-out}.game-screen.crashed .game-multiplier{color:#ff4553}.game-bottom-label{position:absolute;z-index:4;bottom:9px;left:12px;color:#b7b7c4;font-size:8px;letter-spacing:1px}.game-bottom-label b{color:#fff}.game-history{display:flex;align-items:center;gap:7px;overflow:hidden;padding:10px 2px;font-size:8px;white-space:nowrap}.game-history span{color:#858591;letter-spacing:.7px;margin-right:3px}.game-history b{background:#171923;border:1px solid #2c303c;border-radius:4px;padding:4px 7px;color:#ff9aa3;font:700 9px Orbitron}.game-panels{display:grid;grid-template-columns:1fr 1fr;gap:9px}.bet-panel{background:#151720;border:1px solid #303340;border-radius:7px;padding:11px}.bet-panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.bet-panel-head b{font:700 9px Orbitron;color:#ddd}.demo-tag{font-size:7px;color:#ffb2b8;border:1px solid #6a3039;padding:2px 5px;border-radius:3px}.bet-panel label{display:block;color:#999;font-size:8px;margin-bottom:4px}.stake-input{width:100%;background:#090b11;border:1px solid #353846;border-radius:4px;padding:8px;color:white;font:600 12px Poppins}.bet-result{height:25px;padding-top:6px;color:#a8a9b4;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bet-button{width:100%;border:0;border-radius:4px;padding:10px;background:#1eaa68;color:white;font:800 10px Orbitron;cursor:pointer}.bet-button:disabled{opacity:.5;cursor:not-allowed}.bet-button.cashing{background:#d89b32}.bet-button.cashed{background:#236f4b}.game-footnote{padding:9px 2px 1px;color:#777;font-size:8px;line-height:1.5}@keyframes crashPop{from{opacity:0;transform:translate(-50%,-50%) scale(.65)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:800px){.plane-stage{min-height:0}.aviator-game{max-width:520px;margin:auto}.game-screen{height:235px}}@media(max-width:420px){.aviator-game{padding:8px}.game-screen{height:210px}.game-brand{font-size:11px}.game-status{font-size:7px}.bet-panel{padding:8px}.game-history{gap:4px}.game-history span{font-size:7px}}
 </style>
 </head>
 <body>
 <header><div class="wrap nav"><a class="logo" href="#home">PRO <span>TIPSTERS</span></a><nav class="navlinks"><a href="#winners">PAYOUTS</a><a href="#how">HOW IT WORKS</a><a class="navcta" href="#register">GET STARTED ↗</a></nav></div></header>
 <main id="home">
-<section class="hero"><div class="wrap hero-grid"><div><span class="eyebrow"><i class="dot"></i> AVIATOR ACCOUNT MANAGEMENT</span><h1>YOUR ACCOUNT.<br><span class="red">OUR INTELLIGENCE.</span></h1><p class="hero-copy">Join Pro Tipsters for managed Aviator sessions using our analysis approach. Choose your betting platform, register your details and our team will contact you on WhatsApp with the next steps.</p><div class="actions"><a class="btn" href="#register">REGISTER NOW ↓</a><a class="btn secondary" href="https://wa.me/254100494094" target="_blank" rel="noopener">CHAT WITH OUR TEAM ↗</a></div><small class="micro">Minimum account funding KSh 500 · Management fee KSh 200</small></div><div class="plane-stage" id="aviatorStage"><div class="plane-glow"></div><div class="sky-horizon"></div><div class="flight-arc"></div><div class="flight-line"></div><div class="flight-readout"><small>ROUND SIMULATION</small><div class="flight-multiplier" id="flightMultiplier">1.00x</div></div><div class="flight-state" id="flightState">● IN FLIGHT</div><div class="plane" aria-label="animated airplane">✈</div><div class="flight-crash">FLEW AWAY!</div></div></div></section>
+<section class="hero"><div class="wrap hero-grid"><div><span class="eyebrow"><i class="dot"></i> AVIATOR ACCOUNT MANAGEMENT</span><h1>YOUR ACCOUNT.<br><span class="red">OUR INTELLIGENCE.</span></h1><p class="hero-copy">Join Pro Tipsters for managed Aviator sessions using our analysis approach. Choose your betting platform, register your details and our team will contact you on WhatsApp with the next steps.</p><div class="actions"><a class="btn" href="#register">REGISTER NOW ↓</a><a class="btn secondary" href="https://wa.me/254100494094" target="_blank" rel="noopener">CHAT WITH OUR TEAM ↗</a></div><small class="micro">Minimum account funding KSh 500 · Management fee KSh 200</small></div><div class="aviator-game" id="aviatorGame">
+ <div class="game-top"><span class="game-brand">✈ AVIATOR <small>DEMO GAME</small></span><span class="game-status" id="gameStatus">● WAITING FOR NEXT ROUND</span></div>
+ <div class="game-screen" id="gameScreen">
+  <div class="game-stars"></div><div class="game-multiplier" id="gameMultiplier">1.00<span>x</span></div>
+  <svg class="flight-chart" viewBox="0 0 700 280" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="flightFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3848" stop-opacity=".28"/><stop offset="1" stop-color="#ff3848" stop-opacity="0"/></linearGradient></defs><path id="flightArea" d="M0 270 L0 270 Z" fill="url(#flightFill)"/><path id="flightPath" d="M0 270" fill="none" stroke="#ff4050" stroke-width="4" stroke-linecap="round"/><circle id="flightPoint" cx="0" cy="270" r="6" fill="#fff" stroke="#ff4050" stroke-width="4"/></svg>
+  <div class="game-plane" id="gamePlane">✈</div><div class="game-crash" id="gameCrash">FLEW AWAY!</div>
+  <div class="game-bottom-label">ROUND <b id="roundNumber">001</b></div>
+ </div>
+ <div class="game-history"><span>PREVIOUS ROUNDS</span><b>1.24x</b><b>2.81x</b><b>1.06x</b><b>4.32x</b><b>1.77x</b></div>
+ <div class="game-panels">
+  <div class="bet-panel" data-slot="0"><div class="bet-panel-head"><b>BET SLOT 1</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="100" aria-label="Bet amount slot 1"><div class="bet-result" id="betResult0">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="0">BET</button></div>
+  <div class="bet-panel" data-slot="1"><div class="bet-panel-head"><b>BET SLOT 2</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="200" aria-label="Bet amount slot 2"><div class="bet-result" id="betResult1">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="1">BET</button></div>
+ </div>
+ <div class="game-footnote">Interactive visual simulation only — no real bets, deposits, cash-outs or live Aviator connection.</div>
+</div></div></section>
 <section class="section" id="winners"><div class="wrap"><div class="kicker">PRO TIPSTERS PAYOUT BOARD</div><h2 class="heading">This week's top payouts.</h2><p class="intro">Payout figures and names below are supplied by our team. Individual results vary and are not a promise of future winnings.</p><div class="livebar"><div><strong>AVIATOR MANAGEMENT DESK</strong><br><span>Registration and client support available on WhatsApp</span></div><span class="status">● OPEN</span></div><div class="leaderboard">
 <article class="winner"><span class="rank">#01 TOP PAYOUT</span><b>George Njoroge</b><div class="amount">KSh 105,789</div><small>Reported payout</small></article>
 <article class="winner"><span class="rank">#02</span><b>Aron</b><div class="amount">KSh 56,000</div><small>Reported payout</small></article>
@@ -45,25 +63,57 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
 <footer><div class="wrap foot"><span>© 2026 Pro Tipsters · Aviator Intelligence</span><span><a href="#winners">Payouts</a> · <a href="#register">Register</a> · <a href="https://wa.me/254100494094">WhatsApp</a></span><span>18+ · Play responsibly</span></div></footer>
 <script>
 (function(){
- const stage=document.getElementById('aviatorStage');
- const multiplier=document.getElementById('flightMultiplier');
- const state=document.getElementById('flightState');
- if(!stage||!multiplier||!state)return;
- let start=Date.now();
- function tick(){
-  const elapsed=(Date.now()-start)%8000;
-  const crashed=elapsed>=6100;
-  stage.classList.toggle('crashed',crashed);
-  if(crashed){multiplier.textContent='CRASHED';state.textContent='● ROUND ENDED';}
-  else{
-   const progress=Math.min(elapsed/6100,1);
-   const value=1+Math.pow(progress,2.25)*5.82;
-   multiplier.textContent=value.toFixed(2)+'x';
-   state.textContent='● IN FLIGHT';
-  }
-  requestAnimationFrame(tick);
+ const screen=document.getElementById('gameScreen'),mult=document.getElementById('gameMultiplier'),plane=document.getElementById('gamePlane'),status=document.getElementById('gameStatus'),path=document.getElementById('flightPath'),area=document.getElementById('flightArea'),point=document.getElementById('flightPoint'),crash=document.getElementById('gameCrash'),roundLabel=document.getElementById('roundNumber');
+ if(!screen)return;
+ const slots=[0,1].map(i=>({active:false,cashed:false,stake:0,button:document.querySelector('[data-slot="'+i+'"][data-action="bet"]'),input:document.querySelectorAll('.stake-input')[i],result:document.getElementById('betResult'+i)}));
+ let phase='waiting',round=0,roundStart=0,crashAt=0,crashValue=1.5,history=[];
+ const W=700,H=280;
+ function setButton(slot,label,disabled,cls){slot.button.textContent=label;slot.button.disabled=!!disabled;slot.button.className='bet-button'+(cls?' '+cls:'');}
+ function resetSlots(){slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.result.textContent='Ready for next round';setButton(slot,'BET',false,'');slot.input.disabled=false;});}
+ function startRound(){
+  phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();crashAt=4600+Math.random()*4200;crashValue=1+Math.pow(crashAt/1500,1.45)*.55;
+  screen.classList.remove('crashed');crash.style.display='none';status.textContent='● THE PLANE IS FLYING';resetSlots();
  }
- tick();
+ function endRound(){
+  phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● ROUND ENDED';mult.textContent=crashValue.toFixed(2)+'x';
+  slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='Crashed — demo stake lost';setButton(slot,'ROUND LOST',true,'');}});
+  history.unshift(crashValue.toFixed(2)+'x');history=history.slice(0,5);
+  document.querySelectorAll('.game-history b').forEach((el,i)=>{el.textContent=history[i]||'—';});
+  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{if(!slot.active){setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Place a demo bet for next round';}});},2400);
+ }
+ function frame(now){
+  if(phase==='waiting'){
+   if(mult.textContent!=='NEXT ROUND')mult.textContent='1.00x';
+  }else if(phase==='flying'){
+   const elapsed=now-roundStart,progress=Math.min(elapsed/crashAt,1),value=Math.exp(progress*Math.log(crashValue));
+   mult.innerHTML=value.toFixed(2)+'<span>x</span>';
+   const x=progress*W,y=H- Math.pow(progress,1.55)*220;
+   const d='M0 270 Q '+(x*.48)+' '+(H- Math.pow(progress*.48,1.55)*220-28)+' '+x.toFixed(1)+' '+y.toFixed(1);
+   path.setAttribute('d',d);area.setAttribute('d',d+' L '+x.toFixed(1)+' 280 L 0 280 Z');
+   point.setAttribute('cx',x);point.setAttribute('cy',y);
+   plane.style.left=(progress*88+5)+'%';plane.style.top=(y/H*100)+'%';
+   slots.forEach(slot=>{if(slot.active&&!slot.cashed)slot.result.textContent='Live demo value: '+value.toFixed(2)+'x';});
+   if(elapsed>=crashAt)endRound();
+  }
+  requestAnimationFrame(frame);
+ }
+ slots.forEach((slot,i)=>{
+  setButton(slot,'BET NEXT ROUND',false,'');
+  slot.button.addEventListener('click',()=>{
+   if(phase==='waiting'){
+    const stake=Number(slot.input.value);
+    if(!Number.isFinite(stake)||stake<10){slot.result.textContent='Enter at least KSh 10';return;}
+    slot.active=true;slot.cashed=false;slot.stake=stake;slot.result.textContent='Demo bet queued: KSh '+stake.toLocaleString('en-KE');slot.input.disabled=true;setButton(slot,'BET QUEUED',true,'');
+   }else if(phase==='flying'&&slot.active&&!slot.cashed){
+    const elapsed=performance.now()-roundStart,value=Math.exp(Math.min(elapsed/crashAt,1)*Math.log(crashValue)),payout=Math.floor(slot.stake*value);
+    slot.cashed=true;slot.active=false;slot.result.textContent='DEMO CASHED OUT · KSh '+payout.toLocaleString('en-KE')+' at '+value.toFixed(2)+'x';setButton(slot,'CASHED OUT',true,'cashed');
+   }
+  });
+ });
+ function loopRound(){if(phase==='waiting'){startRound();}setTimeout(()=>{if(phase==='flying')endRound();loopRound();},phase==='flying'?crashAt:2700);}
+ setTimeout(()=>{startRound();requestAnimationFrame(frame);},1200);
+ requestAnimationFrame(frame);
+ setInterval(()=>{if(phase==='waiting')startRound();},12000);
 })();
 </script>
 <script>
