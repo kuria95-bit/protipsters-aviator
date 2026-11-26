@@ -27,7 +27,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
 <header><div class="wrap nav"><a class="logo" href="#home">PRO <span>TIPSTERS</span></a><nav class="navlinks"><a href="#winners">PAYOUTS</a><a href="#how">HOW IT WORKS</a><a class="navcta" href="#register">GET STARTED ↗</a></nav></div></header>
 <main id="home">
 <section class="hero"><div class="wrap hero-grid"><div><span class="eyebrow"><i class="dot"></i> AVIATOR ACCOUNT MANAGEMENT</span><h1>YOUR ACCOUNT.<br><span class="red">OUR INTELLIGENCE.</span></h1><p class="hero-copy">Join Pro Tipsters for managed Aviator sessions using our analysis approach. Choose your betting platform, register your details and our team will contact you on WhatsApp with the next steps.</p><div class="actions"><a class="btn" href="#register">REGISTER NOW ↓</a><a class="btn secondary" href="https://wa.me/254100494094" target="_blank" rel="noopener">CHAT WITH OUR TEAM ↗</a></div><small class="micro">Minimum account funding KSh 500 · Management fee KSh 200</small></div><div class="aviator-game" id="aviatorGame">
- <div class="game-top"><span class="game-brand">✈ AVIATOR <small>AI SYSTEM RUNNING</small></span><span class="game-status" id="gameStatus">● AI SYSTEM RUNNING</span></div>
+ <div class="game-top"><span class="game-brand">✈ AVIATOR <small>AI INTELLIGENCE RUNNING ALGORITHM</small></span><span class="game-status" id="gameStatus">● AI INTELLIGENCE RUNNING ALGORITHM</span></div>
  <div class="game-screen" id="gameScreen">
   <div class="game-stars"></div><div class="game-multiplier" id="gameMultiplier">1.00<span>x</span></div>
   <svg class="flight-chart" viewBox="0 0 700 280" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="flightFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3848" stop-opacity=".28"/><stop offset="1" stop-color="#ff3848" stop-opacity="0"/></linearGradient></defs><path id="flightArea" d="M0 270 L0 270 Z" fill="url(#flightFill)"/><path id="flightPath" d="M0 270" fill="none" stroke="#ff4050" stroke-width="4" stroke-linecap="round"/><circle id="flightPoint" cx="0" cy="270" r="6" fill="#fff" stroke="#ff4050" stroke-width="4"/></svg>
@@ -90,7 +90,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  function startRound(){
   phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();
   crashAt=5600+Math.random()*3600;crashValue=sampleCrashMultiplier();
-  screen.classList.remove('crashed');crash.style.display='none';status.textContent='● AI SYSTEM ACTIVE';
+  screen.classList.remove('crashed');crash.style.display='none';status.textContent='● AI INTELLIGENCE RUNNING ALGORITHM';
   const amounts=amountCycle[(round-1)%amountCycle.length];
   slots.forEach((slot,i)=>{
    slot.active=true;slot.cashed=false;slot.stake=amounts[i];slot.input.value=slot.stake;slot.input.disabled=true;
@@ -100,7 +100,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  }
  function endRound(){
   if(phase!=='flying')return;
-  phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● ANALYSIS CONTINUING';mult.innerHTML=crashValue.toFixed(2)+'<span>x</span>';
+  phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● AI INTELLIGENCE RUNNING ALGORITHM';mult.innerHTML=crashValue.toFixed(2)+'<span>x</span>';
   slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='CRASHED before '+slot.target+'x — stake lost';setButton(slot,'PLAY NEXT ROUND',true,'');}});
   history.unshift(crashValue.toFixed(2)+'x');history=history.slice(0,5);
   document.querySelectorAll('.game-history b').forEach((el,i)=>{el.textContent=history[i]||'—';});
