@@ -36,8 +36,8 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  </div>
  <div class="game-history"><span>PREVIOUS ROUNDS</span><b>1.24x</b><b>2.81x</b><b>1.06x</b><b>4.32x</b><b>1.77x</b></div>
  <div class="game-panels">
-  <div class="bet-panel" data-slot="0"><div class="bet-panel-head"><b>BET SLOT 1</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="100" aria-label="Bet amount slot 1"><div class="bet-result" id="betResult0">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="0">BET</button></div>
-  <div class="bet-panel" data-slot="1"><div class="bet-panel-head"><b>BET SLOT 2</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="200" aria-label="Bet amount slot 2"><div class="bet-result" id="betResult1">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="1">BET</button></div>
+  <div class="bet-panel" data-slot="0"><div class="bet-panel-head"><b>BET SLOT 1</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="500" aria-label="Bet amount slot 1"><div class="bet-result" id="betResult0">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="0">BET</button></div>
+  <div class="bet-panel" data-slot="1"><div class="bet-panel-head"><b>BET SLOT 2</b><span class="demo-tag">DEMO</span></div><label>BET AMOUNT (KSh)</label><input class="stake-input" type="number" min="10" step="10" value="1000" aria-label="Bet amount slot 2"><div class="bet-result" id="betResult1">Ready for next round</div><button class="bet-button" type="button" data-action="bet" data-slot="1">BET</button></div>
  </div>
  <div class="game-footnote">Interactive visual simulation only — no real bets, deposits, cash-outs or live Aviator connection.</div>
 </div></div></section>
@@ -80,7 +80,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
   slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='Crashed — demo stake lost';setButton(slot,'ROUND LOST',true,'');}});
   history.unshift(crashValue.toFixed(2)+'x');history=history.slice(0,5);
   document.querySelectorAll('.game-history b').forEach((el,i)=>{el.textContent=history[i]||'—';});
-  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.input.disabled=false;setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Place a demo bet for next round';});},2400);
+  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.input.disabled=false;const amountCycle=[[500,1000],[750,1500],[1000,2000],[1500,2500],[2000,3000]];slot.input.value=amountCycle[round%amountCycle.length][slots.indexOf(slot)];setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Next demo stake: KSh '+Number(slot.input.value).toLocaleString('en-KE');});},2400);
  }
  function frame(now){
   if(phase==='waiting'){
@@ -93,7 +93,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
    path.setAttribute('d',d);area.setAttribute('d',d+' L '+x.toFixed(1)+' 280 L 0 280 Z');
    point.setAttribute('cx',x);point.setAttribute('cy',y);
    plane.style.left=(progress*88+5)+'%';plane.style.top=(y/H*100)+'%';
-   slots.forEach(slot=>{if(slot.active&&!slot.cashed)slot.result.textContent='Live demo value: '+value.toFixed(2)+'x';});
+   slots.forEach(slot=>{if(slot.active&&!slot.cashed){const projected=Math.floor(slot.stake*value);slot.result.textContent='KSh '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+projected.toLocaleString('en-KE');}});
    if(elapsed>=crashAt)endRound();
   }
   requestAnimationFrame(frame);
@@ -107,7 +107,7 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
     slot.active=true;slot.cashed=false;slot.stake=stake;slot.result.textContent='Demo bet queued: KSh '+stake.toLocaleString('en-KE');slot.input.disabled=true;setButton(slot,'BET QUEUED',true,'');
    }else if(phase==='flying'&&slot.active&&!slot.cashed){
     const elapsed=performance.now()-roundStart,value=Math.exp(Math.min(elapsed/crashAt,1)*Math.log(crashValue)),payout=Math.floor(slot.stake*value);
-    slot.cashed=true;slot.active=false;slot.result.textContent='DEMO CASHED OUT · KSh '+payout.toLocaleString('en-KE')+' at '+value.toFixed(2)+'x';setButton(slot,'CASHED OUT',true,'cashed');
+    slot.cashed=true;slot.active=false;slot.result.textContent='CASHED: '+slot.stake.toLocaleString('en-KE')+' × '+value.toFixed(2)+'x = KSh '+payout.toLocaleString('en-KE');setButton(slot,'CASHED OUT',true,'cashed');
    }
   });
  });
