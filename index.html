@@ -72,14 +72,15 @@ footer{padding:24px 0;border-top:1px solid #222;color:#777;font-size:10px}.foot{
  function resetSlots(){slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.result.textContent='Ready for next round';setButton(slot,'BET',false,'');slot.input.disabled=false;});}
  function startRound(){
   phase='flying';round++;roundLabel.textContent=String(round).padStart(3,'0');roundStart=performance.now();crashAt=4600+Math.random()*4200;crashValue=1+Math.pow(crashAt/1500,1.45)*.55;
-  screen.classList.remove('crashed');crash.style.display='none';status.textContent='● THE PLANE IS FLYING';resetSlots();
+  screen.classList.remove('crashed');crash.style.display='none';status.textContent='● THE PLANE IS FLYING';
+  slots.forEach(slot=>{if(slot.active){slot.cashed=false;slot.result.textContent='Demo bet active — cash out when ready';setButton(slot,'CASH OUT',false,'cashing');}else{slot.cashed=false;slot.stake=0;slot.input.disabled=false;slot.result.textContent='No demo bet in this round';setButton(slot,'BET NEXT ROUND',false,'');}});
  }
  function endRound(){
   phase='crashed';screen.classList.add('crashed');crash.style.display='block';status.textContent='● ROUND ENDED';mult.textContent=crashValue.toFixed(2)+'x';
   slots.forEach(slot=>{if(slot.active&&!slot.cashed){slot.active=false;slot.result.textContent='Crashed — demo stake lost';setButton(slot,'ROUND LOST',true,'');}});
   history.unshift(crashValue.toFixed(2)+'x');history=history.slice(0,5);
   document.querySelectorAll('.game-history b').forEach((el,i)=>{el.textContent=history[i]||'—';});
-  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{if(!slot.active){setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Place a demo bet for next round';}});},2400);
+  setTimeout(()=>{phase='waiting';status.textContent='● WAITING FOR NEXT ROUND';mult.textContent='NEXT ROUND';path.setAttribute('d','M0 270');area.setAttribute('d','M0 270 L0 270 Z');point.setAttribute('cx','0');point.setAttribute('cy','270');plane.style.left='0%';plane.style.top='100%';slots.forEach(slot=>{slot.active=false;slot.cashed=false;slot.stake=0;slot.input.disabled=false;setButton(slot,'BET NEXT ROUND',false,'');slot.result.textContent='Place a demo bet for next round';});},2400);
  }
  function frame(now){
   if(phase==='waiting'){
